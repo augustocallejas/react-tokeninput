@@ -385,7 +385,7 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var ariaLabel = this.props['aria-label'] || 'Start typing to search. ' +
+    var ariaDescribedBy = this.props['aria-label'] || 'Start typing to search. ' +
       'Press the down arrow to navigate results. If you don\'t find an ' +
       'acceptable option, you can input an alternative. Once you find or ' +
       'input the tag you want, press Enter or Comma to add it.'
@@ -393,11 +393,15 @@ module.exports = React.createClass({
     return div({className: this.getClassName()},
       this.props.value,
       this.state.inputValue,
+      div({
+        className: 'screenreader-only',
+        id: 'ic-tokeninput-instructions'
+      }, ariaDescribedBy),
       input({
         ref: 'input',
         autoComplete: 'off',
         spellCheck: 'false',
-        'aria-label': ariaLabel,
+        'aria-describedby': 'ic-tokeninput-instructions',
         'aria-expanded': this.state.isOpen+'',
         'aria-haspopup': 'true',
         'aria-activedescendant': this.state.menu.activedescendant,
